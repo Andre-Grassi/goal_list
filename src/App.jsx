@@ -4,22 +4,10 @@ import { useState } from "react";
 function App() {
   // Array that contains the goals
   const [list, listHelper] = useState([])
-
-  // Array that is used for different key values in the list
-  let keyArr = []
   
   // Function that adds goals to the list
   function addGoal(title) {
-    if (list.length >= 1) {
-      console.log(keyArr.at(0))
-      keyArr.push(keyArr.at(-1) + 1)
-    }
-    else {
-      keyArr.push(0)
-    } 
-    
-    console.log(keyArr)
-    listHelper((prevState) => [...prevState, <li key={keyArr[keyArr.length - 1]}>{title}</li>])
+    listHelper((prevState) => [...prevState, <li key={Math.round(Math.random()*1000)}>{title}</li>])
   }
   
   return (
