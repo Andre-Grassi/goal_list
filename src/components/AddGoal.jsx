@@ -19,9 +19,9 @@ function AddGoal(props) {
   }
 
   return(
-    <form>
-      <input type="text" name="Add goal" onChange={getGoal}/>
-      <button type="submit" onClick={submit}>Submit</button>
+    <form className='d-flex gap-3 mb-3'>
+      <input onChange={getGoal} type="text" aria-label="Add goal" placeholder='Write a goal' className="form-control px-2"/>
+      <button onClick={submit} type="submit" className="btn bg-primary-subtle px-3">Submit</button>
     </form>
   )
 }

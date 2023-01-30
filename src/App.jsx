@@ -7,18 +7,22 @@ function App() {
   
   // Function that adds goals to the list
   function addGoal(title) {
-    listHelper((prevState) => [...prevState, <li key={Math.round(Math.random()*1000)}>{title}</li>])
+    listHelper((prevState) => 
+      [
+        ...prevState,
+        <li key={Math.round(Math.random()*1000)} className="list-group-item">{title}</li>
+      ])
   }
   
   return (
-    <div className="App">
-      <header>
-        <h1 className='display-1'>Goal list</h1>
+    <div className="App d-flex flex-column align-items-center">
+      <header className="my-3">
+        <h1 className='display-1 fw-bold'>Goal list</h1>
         <h2 className='h1'>achieve your goals.</h2>
       </header>
-      <main>
+      <main className="d-flex flex-column align-items-center mt-3">
         <AddGoal submitGoal={addGoal}/> {/*submitGoal is used for passing data from child to parend */}
-        <ul>{list}</ul>
+        <ul className="list-group">{list}</ul>
       </main>
     </div>
   );
