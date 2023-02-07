@@ -6,49 +6,25 @@ function generateKey(decimals) {
 }
 
 function App() {
-  // Array that contains the goals
-  const [list, setList] = useState({
-    item: [],
-    key: [0]
-  })
+  // Array that contains the goals. Each goal is an object with 'title' and 'key' properties
+  const [list, setList] = useState([])
 
   // Function that adds goals to the list
-  function addGoal(title) {
+  function addGoal(newTitle) {
     setList(prevState => {
-      return {
-        // Known bug: if the key property is not initialized with 0, then the first item won't have neither id nor key, because the key generated here can't be used until the next rendeing
-        key: [...prevState.key, generateKey(1000)],
-        item: [
-          ...prevState.item,
-          <li
-            onClick={event => removeGoal(event, list.item.length - 1)}
-            id={list.key[list.key.length - 1]}
-            key={list.key[list.key.length - 1]}
-            className="list-group-item"
-          >
-            {title}
-          </li>
-        ]
-      }
+      return [
+        ...prevState,
+        {
+          key: generateKey(1000),
+          title: newTitle
+        }
+      ]
     })
   }
 
-  function removeGoal(event, currKey) {
-    const element = event.target
-    console.log('id: ', element.id)
-    // console.log(list.item[0])
-    console.log('item: ', list.item[currKey])
-    /*
-    for (let i = 0; i < list.item.length; i++) {
-      console.log(`${list.item[i].key} and ${element.id}`)
-      if (list.item[i].key === element.id) console.log(list.item[i].key)
-    }
-    */
-    /*
-   const indexItem = list.item.indexOf(item)
-   list.key.splice(index, 1)
-   list.item.splice(index, 1)
-   */
+  function removeGoal(currKey) {
+    // Filter method returns a new array with only the elements that passed the test provided in the argument
+    setList(list.filter(item => item.key !== currKey))
   }
 
   return (
@@ -60,7 +36,18 @@ function App() {
       <main className="d-flex flex-column align-items-center mt-3">
         {/*submitGoal is used for passing data from child to parend */}
         <AddGoal submitGoal={addGoal} />
-        <ul className="list-group">{list.item}</ul>
+        <ul className="list-group">
+          {list.map(element => (
+            <li
+              onClick={() => removeGoal(element.key)}
+              id={element.key}
+              key={element.key}
+              className="list-group-item"
+            >
+              {element.title}
+            </li>
+          ))}
+        </ul>
       </main>
     </div>
   )
