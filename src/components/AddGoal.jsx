@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import { useState } from 'react'
 
 function AddGoal(props) {
   // Variable that contains the title of the goal being added
@@ -18,10 +18,22 @@ function AddGoal(props) {
     props.submitGoal(goalTitle)
   }
 
-  return(
-    <form className='d-flex gap-3 mb-3'>
-      <input onChange={getGoal} type="text" aria-label="Add goal" placeholder='Write a goal' className="form-control px-2"/>
-      <button onClick={submit} type="submit" className="btn bg-primary-subtle px-3">Submit</button>
+  return (
+    <form className="d-flex gap-3 mb-3">
+      <input
+        onChange={getGoal}
+        type="text"
+        aria-label="Write a goal"
+        placeholder="Write a goal"
+        className="form-control px-2"
+      />
+      <button
+        onClick={submit}
+        type="submit"
+        className="btn bg-primary-subtle px-3"
+      >
+        Submit
+      </button>
     </form>
   )
 }
