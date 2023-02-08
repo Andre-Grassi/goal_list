@@ -1,10 +1,34 @@
 import AddGoal from './components/AddGoal'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import generateKey from './helpers/generateKey'
 
 function App() {
   // Array that contains the goals. Each goal is an object with 'title' and 'key' properties
   const [list, setList] = useState([])
+
+  // ATENÇÃO O USE EFFECT NÃO É ASSÍNCRONO, então o useeffect que faz o get acontece antes do que faz o set quando o App é montado, evitando a situação de fazer um set sem antes recuperar a possível lista guardada
+  // Components mounts twice in development build because of <React.StrictMode> in index.js. So to avoid unwanted behaviours while using useEffect, I removed that tag.
+  // Get stored list if there is any element in the local storage
+  useEffect(() => {
+    // Get the stored list
+    console.log('esse')
+    const listStorage = localStorage.getItem('list')
+
+    // Check if the list is empty
+    if (listStorage !== null) {
+      // Parse the stored list into a const
+      const storedList = JSON.parse(listStorage)
+
+      // Update the state of the list
+      setList(storedList)
+    }
+  }, [])
+
+  // Save the list to local storage in form of a JSON object every time that the list changes
+  useEffect(() => {
+    console.log('executed')
+    localStorage.setItem('list', JSON.stringify(list))
+  }, [list])
 
   // Function that adds goals to the list
   function addGoal(newTitle) {
