@@ -36,7 +36,7 @@ function App() {
       <main className="d-flex flex-column align-items-center mt-3">
         {/*submitGoal is used for passing data from child to parend */}
         <AddGoal submitGoal={addGoal} />
-        <ul className="list-group">
+        <ul className="list-group text-center">
           {list.map(element => (
             <li
               onClick={() => removeGoal(element.key)}
