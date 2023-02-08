@@ -2,16 +2,16 @@ import { useState } from 'react'
 
 function AddGoal(props) {
   // Variable that contains the title of the goal being added
-  const [goalTitle, setGoalTitle] = useState('')
+  const [newTitle, setNewTitle] = useState('')
 
   // Variable that controls whether the input field is empty or not when trying to submit
   const [submitEmpty, setSubmitEmpty] = useState(false)
 
   // Function that gets the title of the goal being written in the input
-  function getGoal(input) {
+  function getTitle(input) {
     // The input is an object, and its value can be accessed via input.targe.value
     const title = input.target.value
-    setGoalTitle(title)
+    setNewTitle(title)
   }
 
   // Function that will submit the title to the App component so it can be added to list
@@ -20,7 +20,7 @@ function AddGoal(props) {
     event.preventDefault()
 
     // Doesn't submit if the input field is empty and turns the border and the field red
-    if (goalTitle === '') {
+    if (newTitle === '') {
       setSubmitEmpty(true)
       return
     }
@@ -29,17 +29,18 @@ function AddGoal(props) {
       setSubmitEmpty(false)
     }
 
-    props.submitGoal(goalTitle)
+    // Submit new goal to the function of the parent component
+    props.submitGoal(newTitle)
 
     // Clear the input field
-    setGoalTitle('')
+    setNewTitle('')
   }
 
   return (
     <form className="d-flex gap-3 mb-3">
       <input
-        onChange={getGoal}
-        value={goalTitle}
+        onChange={getTitle}
+        value={newTitle}
         type="text"
         aria-label="Write a goal"
         placeholder="Write a goal"
