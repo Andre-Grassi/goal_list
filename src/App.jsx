@@ -1,9 +1,6 @@
 import AddGoal from './components/AddGoal'
 import { useState } from 'react'
-
-function generateKey(decimals) {
-  return Math.round(Math.random() * decimals)
-}
+import generateKey from './helpers/generateKey'
 
 function App() {
   // Array that contains the goals. Each goal is an object with 'title' and 'key' properties
