@@ -11,7 +11,6 @@ function App() {
   // Get stored list if there is any element in the local storage
   useEffect(() => {
     // Get the stored list
-    console.log('esse')
     const listStorage = localStorage.getItem('list')
 
     // Check if the list is empty
@@ -26,7 +25,6 @@ function App() {
 
   // Save the list to local storage in form of a JSON object every time that the list changes
   useEffect(() => {
-    console.log('executed')
     localStorage.setItem('list', JSON.stringify(list))
   }, [list])
 
