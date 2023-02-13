@@ -4,6 +4,10 @@ import { useState } from 'react'
 function AuthForm(props) {
   function logIn(event) {
     event.preventDefault()
+    // User has terminated the authentication process, so set the state of isAuthenticating of App.jsx to false
+    props.onAuth(false)
+
+    // Submit info that the user is logged in
     props.onSubmit(prevState => ({ ...prevState, isLoggedIn: true }))
   }
 
@@ -34,7 +38,6 @@ function AuthForm(props) {
       )}
     </form>
   )
-  //}
 }
 
 export default AuthForm

@@ -3,10 +3,10 @@ import AuthButtons from './AuthButtons'
 import AuthForm from './AuthForm'
 
 // Parent component of the overall authentication process
-function Authentication() {
+function Authentication(props) {
   const [auth, setAuth] = useState({
-    isLoggedIn: false,
-    action: null
+    action: null,
+    isLoggedIn: false
   })
 
   const [userData, setUserData] = useState({ email: '', password: '' })
@@ -16,7 +16,16 @@ function Authentication() {
       throw new Error('Invalid action')
     }
 
-    setAuth(prevState => ({ ...prevState, action: dispatchedAction }))
+    // When user has initialized the authentication process, set the isAuthenticating in App.jsx to true
+    props.onAuth(true)
+
+    setAuth(prevState => ({
+      ...prevState,
+      action: dispatchedAction
+    }))
+
+    // I think this logs the previous state because it still has not re-rendered
+    // console.log(auth)
   }
 
   return (
@@ -28,7 +37,7 @@ function Authentication() {
 
       {/* Only show the form to log in or register if the user is not logged in and if an action to log in or sign up has been dispatched */}
       {!auth.isLoggedIn && auth.action !== null && (
-        <AuthForm auth={auth} onSubmit={setAuth} />
+        <AuthForm auth={auth} onSubmit={setAuth} onAuth={props.onAuth} />
       )}
     </>
   )

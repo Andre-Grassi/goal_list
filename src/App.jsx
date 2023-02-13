@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react'
 import generateKey from './helpers/generateKey'
 
 function App() {
+  // Adition of goals:
+
   // Array that contains the goals. Each goal is an object with 'title' and 'key' properties
   const [list, setList] = useState([])
 
@@ -47,29 +49,45 @@ function App() {
     setList(list.filter(item => item.key !== currKey))
   }
 
+  //////////////////////////////////////////////////////////
+
+  // Authentication:
+
+  // State that manages wheter the user is authenticating or not
+  const [isAuthenticating, setIsAuthenticating] = useState(false)
+
+  // Function to uptade the state of isAuthenticating programatically
+  function isAuthenticatingHandler(authenticating) {
+    setIsAuthenticating(authenticating)
+  }
+
   return (
     <div className="App d-flex flex-column align-items-center">
       <header className="my-3 text-center">
         <h1 className="display-1 fw-bold">Goal list</h1>
         <h2 className="h1">achieve your goals.</h2>
-        <Authentication />
+        <Authentication onAuth={isAuthenticatingHandler} />
       </header>
-      <main className="d-flex flex-column align-items-center mt-3">
-        {/*submitGoal is used for passing data from child to parend */}
-        <AddGoal submitGoal={addGoal} />
-        <ul className="list-group text-center">
-          {list.map(element => (
-            <li
-              onClick={() => removeGoal(element.key)}
-              id={element.key}
-              key={element.key}
-              className="list-group-item"
-            >
-              {element.title}
-            </li>
-          ))}
-        </ul>
-      </main>
+
+      {/* Only show the list if the user is not trying to authenticate */}
+      {!isAuthenticating && (
+        <main className="d-flex flex-column align-items-center mt-3">
+          {/*submitGoal is used for passing data from child to parend */}
+          <AddGoal submitGoal={addGoal} />
+          <ul className="list-group text-center">
+            {list.map(element => (
+              <li
+                onClick={() => removeGoal(element.key)}
+                id={element.key}
+                key={element.key}
+                className="list-group-item"
+              >
+                {element.title}
+              </li>
+            ))}
+          </ul>
+        </main>
+      )}
     </div>
   )
 }
