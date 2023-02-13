@@ -1,4 +1,5 @@
 import AddGoal from './components/AddGoal'
+import Authentication from './components/Auth/Authentication'
 import { useState, useEffect } from 'react'
 import generateKey from './helpers/generateKey'
 
@@ -51,6 +52,7 @@ function App() {
       <header className="my-3 text-center">
         <h1 className="display-1 fw-bold">Goal list</h1>
         <h2 className="h1">achieve your goals.</h2>
+        <Authentication />
       </header>
       <main className="d-flex flex-column align-items-center mt-3">
         {/*submitGoal is used for passing data from child to parend */}
