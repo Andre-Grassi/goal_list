@@ -8,13 +8,19 @@ function AuthButtons(props) {
   // }
 
   return (
-    <nav>
+    <nav className="d-flex justify-content-center gap-2 mt-3">
       {/* Button that sets the action of the auth state in Authentication.jsx to log-in*/}
-      <button onClick={() => props.dispatchAction('log-in')} className="btn">
+      <button
+        onClick={() => props.dispatchAction('log-in')}
+        className="btn btn-light"
+      >
         Log in
       </button>
       {/* Button that sets the action of the auth state in Authentication.jsx to sign-up*/}
-      <button onClick={() => props.dispatchAction('sign-up')} className="btn">
+      <button
+        onClick={() => props.dispatchAction('sign-up')}
+        className="btn btn-light"
+      >
         Sign up
       </button>
     </nav>

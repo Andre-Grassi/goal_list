@@ -11,6 +11,15 @@ function AuthForm(props) {
     props.onSubmit(prevState => ({ ...prevState, isLoggedIn: true }))
   }
 
+  function signUp(event) {
+    event.preventDefault()
+    // User has terminated the authentication process, so set the state of isAuthenticating of App.jsx to false
+    props.onAuth(false)
+
+    // Submit info that the user is logged in
+    props.onSubmit(prevState => ({ ...prevState, isLoggedIn: true }))
+  }
+
   const auth = props.auth
   //if (auth.action !== null) {
   return (
@@ -28,7 +37,9 @@ function AuthForm(props) {
       {/* If user wants to sign up, then show the button to sign up and another input to confirm the password */}
       {auth.action === 'sign-up' && (
         <>
-          <button /*onClick={signUp}*/ type="submit">Sign up</button>
+          <button onClick={signUp} type="submit">
+            Sign up
+          </button>
           <input
             type="password"
             aria-label="confirm password"
