@@ -56,9 +56,16 @@ function App() {
   // State that manages wheter the user is authenticating or not
   const [isAuthenticating, setIsAuthenticating] = useState(false)
 
+  // State that manages wheter the user is authenticated or not
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+
   // Function to uptade the state of isAuthenticating programatically
   function isAuthenticatingHandler(authenticating) {
     setIsAuthenticating(authenticating)
+  }
+
+  function isAuthenticatedHandler(authenticated) {
+    setIsAuthenticated(authenticated)
   }
 
   return (
@@ -66,7 +73,12 @@ function App() {
       <header className="my-3 text-center">
         <h1 className="display-1 fw-bold">Goal list</h1>
         <h2 className="h1">achieve your goals.</h2>
-        <Authentication onAuth={isAuthenticatingHandler} />
+        {!isAuthenticated && (
+          <Authentication
+            setIsAuthenticating={isAuthenticatingHandler}
+            setIsAuthenticated={isAuthenticatedHandler}
+          />
+        )}
       </header>
 
       {/* Only show the list if the user is not trying to authenticate */}
