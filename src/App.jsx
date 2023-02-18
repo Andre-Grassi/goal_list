@@ -81,25 +81,27 @@ function App() {
         )}
       </header>
 
-      {/* Only show the list if the user is not trying to authenticate */}
-      {!isAuthenticating && (
-        <main className="d-flex flex-column align-items-center mt-3">
-          {/*submitGoal is used for passing data from child to parend */}
-          <AddGoal submitGoal={addGoal} />
-          <ul className="list-group text-center">
-            {list.map(element => (
-              <li
-                onClick={() => removeGoal(element.key)}
-                id={element.key}
-                key={element.key}
-                className="list-group-item"
-              >
-                {element.title}
-              </li>
-            ))}
-          </ul>
-        </main>
-      )}
+      <main className="d-flex flex-column align-items-center mt-3">
+        {/* Only show the list if the user is not trying to authenticate */}
+        {!isAuthenticating && (
+          <>
+            {/*submitGoal is used for passing data from child to parent */}
+            <AddGoal submitGoal={addGoal} />
+            <ul className="list-group text-center">
+              {list.map(element => (
+                <li
+                  onClick={() => removeGoal(element.key)}
+                  id={element.key}
+                  key={element.key}
+                  className="list-group-item"
+                >
+                  {element.title}
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
+      </main>
     </div>
   )
 }
