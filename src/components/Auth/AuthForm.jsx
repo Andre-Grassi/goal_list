@@ -2,22 +2,11 @@ import { useState } from 'react'
 
 // Formulary to log in or sign up
 function AuthForm(props) {
-  function logIn(event) {
+  function submitAuthState(event) {
     event.preventDefault()
-    // User has terminated the authentication process, so set the state of isAuthenticating of App.jsx to false
-    props.onAuth(false)
 
-    // Submit info that the user is logged in
-    props.onSubmit(prevState => ({ ...prevState, isLoggedIn: true }))
-  }
-
-  function signUp(event) {
-    event.preventDefault()
-    // User has terminated the authentication process, so set the state of isAuthenticating of App.jsx to false
-    props.onAuth(false)
-
-    // Submit info that the user is logged in
-    props.onSubmit(prevState => ({ ...prevState, isLoggedIn: true }))
+    // Submit info that the user has logged in
+    props.onSubmit('is-logged-in')
   }
 
   const auth = props.auth
@@ -29,7 +18,7 @@ function AuthForm(props) {
 
       {/* If user wants to log in, then show the button to log in */}
       {auth.action === 'log-in' && (
-        <button onClick={logIn} type="submit">
+        <button onClick={submitAuthState} type="submit">
           Log in
         </button>
       )}
@@ -37,7 +26,7 @@ function AuthForm(props) {
       {/* If user wants to sign up, then show the button to sign up and another input to confirm the password */}
       {auth.action === 'sign-up' && (
         <>
-          <button onClick={signUp} type="submit">
+          <button onClick={submitAuthState} type="submit">
             Sign up
           </button>
           <input

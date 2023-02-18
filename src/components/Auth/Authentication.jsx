@@ -1,43 +1,55 @@
-import { useState } from 'react'
+import { useState, useReducer, useEffect } from 'react'
 import AuthButtons from './AuthButtons'
 import AuthForm from './AuthForm'
 
+// Reducer function for auth
+function authReducer(prevState, action) {
+  // Check if user has been logged in
+  if (action === 'is-logged-in') {
+    // props.onAuth(false) --> Cannot update a component (`App`) while rendering a different component (`Authentication`)
+    // User has terminated the authentication process, so he is logged in (isLoggedIn is true) and is not in the authenticating process anymore (isAuthenticating is false)
+    return { ...prevState, isLoggedIn: true, isAuthenticating: false }
+  } else if (action !== 'log-in' && action !== 'sign-up') {
+    throw new Error('Invalid action')
+  }
+
+  // props.onAuth(true) --> Cannot update a component (`App`) while rendering a different component (`Authentication`)
+
+  // User has initialized the authentication process (isAuthenticating is true) and he is still not logged in (isLoggedIn still is false)
+  return {
+    ...prevState,
+    action: action,
+    isAuthenticating: true
+  }
+}
+
 // Parent component of the overall authentication process
 function Authentication(props) {
-  const [auth, setAuth] = useState({
-    action: null,
-    isLoggedIn: false
-  })
-
   const [userData, setUserData] = useState({ email: '', password: '' })
 
-  function setAction(dispatchedAction) {
-    if (dispatchedAction !== 'log-in' && dispatchedAction !== 'sign-up') {
-      throw new Error('Invalid action')
-    }
+  // State that manages the authentication process
+  const [auth, authDispatch] = useReducer(authReducer, {
+    action: null,
+    isLoggedIn: false,
+    isAuthenticating: false
+  })
 
-    // When user has initialized the authentication process, set the isAuthenticating in App.jsx to true
-    props.onAuth(true)
-
-    setAuth(prevState => ({
-      ...prevState,
-      action: dispatchedAction
-    }))
-
-    // I think this logs the previous state because it still has not re-rendered
-    // console.log(auth)
-  }
+  // Update isAuthenticating and isAuthenticated state in App component (parent of this one) when the auth state is updated
+  useEffect(() => {
+    props.setIsAuthenticating(auth.isAuthenticating)
+    props.setIsAuthenticated(auth.isLoggedIn)
+  }, [auth])
 
   return (
     <>
-      {/* Only show the option to either log in or sign up if the user is not logged in and no action (log in or sign up) has been dispatched  */}
+      {/* Only show the option to either log in or sign up if the user is not logged in and NO action (log in or sign up) has been dispatched  */}
       {!auth.isLoggedIn && auth.action === null && (
-        <AuthButtons dispatchAction={setAction} />
+        <AuthButtons dispatchAction={authDispatch} />
       )}
 
-      {/* Only show the form to log in or register if the user is not logged in and if an action to log in or sign up has been dispatched */}
+      {/* Only show the form to log in or register if the user is not logged in and if an action to log in or sign up HAS been dispatched */}
       {!auth.isLoggedIn && auth.action !== null && (
-        <AuthForm auth={auth} onSubmit={setAuth} onAuth={props.onAuth} />
+        <AuthForm auth={auth} onSubmit={authDispatch} onAuth={props.onAuth} />
       )}
     </>
   )
