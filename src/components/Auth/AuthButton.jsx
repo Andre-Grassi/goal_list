@@ -11,6 +11,7 @@ function AuthButton(props) {
     <>
       {/* Button that sets the action of the auth state in Authentication.jsx to log-in*/}
       <button
+        type={props.type}
         onClick={() => props.dispatchAction(props.action)}
         className="btn btn-light"
       >

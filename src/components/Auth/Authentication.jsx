@@ -45,10 +45,18 @@ function Authentication(props) {
       {/* Only show the option to either log in or sign up if the user is not logged in and NO action (log in or sign up) has been dispatched  */}
       {!auth.isLoggedIn && auth.action === null && (
         <nav className="d-flex justify-content-center gap-2 mt-3">
-          <AuthButton action={'log-in'} dispatchAction={authDispatch}>
+          <AuthButton
+            type="button"
+            action={'log-in'}
+            dispatchAction={authDispatch}
+          >
             Log in
           </AuthButton>
-          <AuthButton action={'sign-up'} dispatchAction={authDispatch}>
+          <AuthButton
+            type="button"
+            action={'sign-up'}
+            dispatchAction={authDispatch}
+          >
             Sign up
           </AuthButton>
         </nav>

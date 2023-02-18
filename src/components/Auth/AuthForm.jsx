@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 // Formulary to log in or sign up
 function AuthForm(props) {
   function submitAuthState(event) {
