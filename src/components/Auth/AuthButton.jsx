@@ -1,4 +1,4 @@
-function AuthButtons(props) {
+function AuthButton(props) {
   // function dispatchAction(action) {
   //   if (action === 'log-in')
   //     props.setAuth(prevState => ({ ...prevState, action: 'log-in' }))
@@ -8,23 +8,16 @@ function AuthButtons(props) {
   // }
 
   return (
-    <nav className="d-flex justify-content-center gap-2 mt-3">
+    <>
       {/* Button that sets the action of the auth state in Authentication.jsx to log-in*/}
       <button
-        onClick={() => props.dispatchAction('log-in')}
+        onClick={() => props.dispatchAction(props.action)}
         className="btn btn-light"
       >
-        Log in
+        {props.children}
       </button>
-      {/* Button that sets the action of the auth state in Authentication.jsx to sign-up*/}
-      <button
-        onClick={() => props.dispatchAction('sign-up')}
-        className="btn btn-light"
-      >
-        Sign up
-      </button>
-    </nav>
+    </>
   )
 }
 
-export default AuthButtons
+export default AuthButton

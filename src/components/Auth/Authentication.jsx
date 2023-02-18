@@ -1,5 +1,5 @@
 import { useState, useReducer, useEffect } from 'react'
-import AuthButtons from './AuthButtons'
+import AuthButton from './AuthButton'
 import AuthForm from './AuthForm'
 
 // Reducer function for auth
@@ -44,7 +44,14 @@ function Authentication(props) {
     <>
       {/* Only show the option to either log in or sign up if the user is not logged in and NO action (log in or sign up) has been dispatched  */}
       {!auth.isLoggedIn && auth.action === null && (
-        <AuthButtons dispatchAction={authDispatch} />
+        <nav className="d-flex justify-content-center gap-2 mt-3">
+          <AuthButton action={'log-in'} dispatchAction={authDispatch}>
+            Log in
+          </AuthButton>
+          <AuthButton action={'sign-up'} dispatchAction={authDispatch}>
+            Sign up
+          </AuthButton>
+        </nav>
       )}
 
       {/* Only show the form to log in or register if the user is not logged in and if an action to log in or sign up HAS been dispatched */}
