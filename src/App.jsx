@@ -1,4 +1,5 @@
 import AddGoal from './components/AddGoal'
+import GoalList from './components/GoalList'
 import Authentication from './components/Auth/Authentication'
 import { useState, useEffect } from 'react'
 import generateKey from './helpers/generateKey'
@@ -74,6 +75,7 @@ function App() {
         <h1 className="display-1 fw-bold">Goal list</h1>
         <h2 className="h1">achieve your goals.</h2>
         {!isAuthenticated && (
+          // Use portal for Authentication component
           <Authentication
             setIsAuthenticating={isAuthenticatingHandler}
             setIsAuthenticated={isAuthenticatedHandler}
@@ -87,18 +89,7 @@ function App() {
           <>
             {/*submitGoal is used for passing data from child to parent */}
             <AddGoal submitGoal={addGoal} />
-            <ul className="list-group text-center">
-              {list.map(element => (
-                <li
-                  onClick={() => removeGoal(element.key)}
-                  id={element.key}
-                  key={element.key}
-                  className="list-group-item"
-                >
-                  {element.title}
-                </li>
-              ))}
-            </ul>
+            <GoalList removeGoal={removeGoal}>{list}</GoalList>
           </>
         )}
       </main>
