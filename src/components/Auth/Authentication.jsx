@@ -41,10 +41,10 @@ function Authentication(props) {
   }, [auth])
 
   return (
-    <>
+    <nav className="d-flex justify-content-center gap-2 mt-3">
       {/* Only show the option to either log in or sign up if the user is not logged in and NO action (log in or sign up) has been dispatched  */}
       {!auth.isLoggedIn && auth.action === null && (
-        <nav className="d-flex justify-content-center gap-2 mt-3">
+        <>
           <AuthButton
             type="button"
             action={'log-in'}
@@ -59,14 +59,14 @@ function Authentication(props) {
           >
             Sign up
           </AuthButton>
-        </nav>
+        </>
       )}
 
       {/* Only show the form to log in or register if the user is not logged in and if an action to log in or sign up HAS been dispatched */}
       {!auth.isLoggedIn && auth.action !== null && (
         <AuthForm auth={auth} onSubmit={authDispatch} onAuth={props.onAuth} />
       )}
-    </>
+    </nav>
   )
 }
 
