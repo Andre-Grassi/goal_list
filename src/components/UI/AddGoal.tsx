@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 
-function AddGoal(props) {
+const AddGoal: React.FC<{ submitGoal: (t: string) => void }> = props => {
   // Variable that contains the title of the goal being added
   const [newTitle, setNewTitle] = useState('')
 
@@ -8,9 +8,9 @@ function AddGoal(props) {
   const [isEmpty, setIsEmpty] = useState(false)
 
   // Function that gets the title of the goal being written in the input
-  function getTitle(input) {
+  function getTitle(input: React.FormEvent) {
     // The input is an object, and its value can be accessed via input.targe.value
-    const title = input.target.value
+    const title = (input.target as HTMLInputElement).value
 
     // If the user start tipying with a space character, then turn the input into red. Otherwise, if the input is already in danger mode and the input is correct, then turn it back to normal (if subtmit while empty and start typing again it will also become normal again with the next else block)
     if (title[0] === ' ') {
@@ -22,7 +22,7 @@ function AddGoal(props) {
   }
 
   // Function that will submit the title to the App component so it can be added to list
-  function submit(event) {
+  function submit(event: React.FormEvent) {
     // Prevents the default action of reloading the page when clicking in a button of a form
     event.preventDefault()
 
@@ -51,7 +51,7 @@ function AddGoal(props) {
         type="text"
         aria-label="Write a goal"
         placeholder="Write a goal"
-        maxLength="70"
+        maxLength={70}
         className={`form-control px-2 
         ${
           // Change the color of the border if input field is empty and user is trying to submit

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 
 import Goals from './components/UI/Goals'
 import Authentication from './components/Auth/Authentication'
@@ -12,11 +12,11 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
 
   // Function to uptade the state of isAuthenticating programatically
-  function isAuthenticatingHandler(authenticating) {
+  function isAuthenticatingHandler(authenticating: boolean) {
     setIsAuthenticating(authenticating)
   }
 
-  function isAuthenticatedHandler(authenticated) {
+  function isAuthenticatedHandler(authenticated: boolean) {
     setIsAuthenticated(authenticated)
   }
 

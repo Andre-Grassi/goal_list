@@ -1,13 +1,14 @@
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import AddGoal from './AddGoal'
 import GoalList from './GoalList'
-import generateKey from '../../helpers/generateKey'
+import ListItem from '../../models/ListItem'
 
-function Goals() {
+const Goals = () => {
   // Adition of goals:
 
   // Array that contains the goals. Each goal is an object with 'title' and 'key' properties
-  const [list, setList] = useState([])
+  const [list, setList] = useState<ListItem[]>([{ key: 0, title: '' }])
+  // I don't know exactly why the default value of ListItem doesn't appear automatically in the list in the app. !!!
 
   // ATENÇÃO O USE EFFECT NÃO É ASSÍNCRONO, então o useeffect que faz o get acontece antes do que faz o set quando o App é montado, evitando a situação de fazer um set sem antes recuperar a possível lista guardada
   // Components mounts twice in development build because of <React.StrictMode> in index.js. So to avoid unwanted behaviours while using useEffect, I removed that tag.
@@ -32,21 +33,15 @@ function Goals() {
   }, [list])
 
   // Function that adds goals to the list
-  function addGoal(newTitle) {
+  function addGoal(newTitle: string) {
     setList(prevState => {
-      return [
-        ...prevState,
-        {
-          key: generateKey(1000),
-          title: newTitle
-        }
-      ]
+      return [...prevState, new ListItem(1000, newTitle)]
     })
   }
 
-  function removeGoal(currKey) {
+  function removeGoal(currKey: number) {
     // Filter method returns a new array with only the elements that passed the test provided in the argument
-    setList(list.filter(item => item.key !== currKey))
+    setList(list.filter((item: ListItem) => item.key !== currKey))
   }
 
   return (
