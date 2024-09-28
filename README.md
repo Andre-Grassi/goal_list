@@ -9,7 +9,9 @@ To use it you can simply enter the Github page where it is deployed https://andr
 
 ### Available Scripts
 
-In the project directory, you can run:
+First install the npm dependencies with `npm install`.
+
+Then, in the project directory, you can run:
 
 #### `npm start`
 
